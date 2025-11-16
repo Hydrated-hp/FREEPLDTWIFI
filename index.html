@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free WiFi</title>
+<style>
+  /* Body red-black theme with pulsing background */
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    background: linear-gradient(270deg, black, #330000, black);
+    background-size: 600% 600%;
+    animation: gradientBG 10s ease infinite;
+    color: red;
+    overflow: hidden;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  /* Loading text */
+  .loading {
+    font-size: 2rem;
+    text-shadow: 0 0 10px red;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Blinking dots */
+  .dot {
+    animation: blink 1s infinite;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+
+  /* Video style */
+  video {
+    width: 300px;       /* square 1:1 */
+    height: 300px;      /* square 1:1 */
+    object-fit: cover;  /* fill square */
+    border: 3px solid red;
+    border-radius: 10px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- Loading animation -->
+<div class="loading" id="status">
+  Connecting to WiFi
+  <span class="dot">.</span>
+  <span class="dot">.</span>
+  <span class="dot">.</span>
+</div>
+
+<!-- Video -->
+<video id="myVideo.MP4" autoplay muted loop playsinline>
+  <source src="myVideo.MP4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+<script>
+  const status = document.getElementById('status');
+  const video = document.getElementById('myVideo.MP4');
+
+  // Show video after 3 sec loading
+  setTimeout(() => {
+    status.style.display = 'none';
+    video.style.display = 'block';
+    video.muted = true; // ensures autoplay
+    video.play().catch(() => console.log("Autoplay failed"));
+  }, 3000); // 3 seconds loading
+</script>
+
+</body>
+</html>

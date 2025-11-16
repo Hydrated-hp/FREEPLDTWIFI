@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free WiFi</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: red;
+    overflow: hidden;
+  }
+
+  /* Pulsing gradient background */
+  body {
+    background: linear-gradient(270deg, black, #330000, black);
+    background-size: 600% 600%;
+    animation: gradientBG 10s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  /* Loading text */
+  .loading {
+    font-size: 2rem;
+    text-shadow: 0 0 10px red;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: glitch 1s infinite;
+  }
+
+  /* Blinking dots */
+  .dot {
+    animation: blink 1s infinite;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  .dot:nth-child(4) { animation-delay: 0.6s; }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+
+  /* Glitch effect for text */
+  @keyframes glitch {
+    0% { text-shadow: 2px 0 red, -2px 0 red; }
+    20% { text-shadow: -2px 0 red, 2px 0 red; }
+    40% { text-shadow: 2px 2px red, -2px -2px red; }
+    60% { text-shadow: -2px 2px red, 2px -2px red; }
+    80% { text-shadow: 2px -2px red, -2px 2px red; }
+    100% { text-shadow: 2px 0 red, -2px 0 red; }
+  }
+
+  /* Tap message */
+  #tapMessage {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    cursor: pointer;
+    display: none;
+    text-shadow: 0 0 10px red;
+    animation: glitch 1s infinite;
+  }
+
+  /* Video style */
+  video {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border: 3px solid red;
+    border-radius: 10px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="loading" id="status">
+  Connecting to WiFi
+  <span class="dot">.</span>
+  <span class="dot">.</span>
+  <span class="dot">.</span>
+  <span class="dot">.</span>
+</div>
+
+<div id="tap anywhere to continue">Tap anywhere to start video with sound 🎵</div>
+
+<video id="myVideo.MP4" loop playsinline>
+  <source src="myVideo.MP4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+<script>
+const status = document.getElementById('status');
+const video = document.getElementById('myVideo');
+const tapMessage = document.getElementById('tapMessage');
+
+// After 3 sec "Connecting" stage
+setTimeout(() => {
+  status.style.display = 'none';
+  tapMessage.style.display = 'block';
+}, 3000);
+
+// Play video with audio on user click
+tapMessage.addEventListener('click', () => {
+  tapMessage.style.display = 'none';
+  video.style.display = 'block';
+  video.play();
+});
+</script>
+
+</body>
+</html>
